@@ -31,7 +31,8 @@
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "preserveSymlinks": true
           },
           "configurations": {
             "production": {
@@ -127,38 +128,38 @@
         }
       }
     },
-    "swipe-list": {
+    "angular-swipe-list": {
       "projectType": "library",
-      "root": "projects/swipe-list",
-      "sourceRoot": "projects/swipe-list/src",
+      "root": "projects/angular-swipe-list",
+      "sourceRoot": "projects/angular-swipe-list/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/swipe-list/tsconfig.lib.json",
-            "project": "projects/swipe-list/ng-package.json"
+            "tsConfig": "projects/angular-swipe-list/tsconfig.lib.json",
+            "project": "projects/angular-swipe-list/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/swipe-list/tsconfig.lib.prod.json"
+              "tsConfig": "projects/angular-swipe-list/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/swipe-list/src/test.ts",
-            "tsConfig": "projects/swipe-list/tsconfig.spec.json",
-            "karmaConfig": "projects/swipe-list/karma.conf.js"
+            "main": "projects/angular-swipe-list/src/test.ts",
+            "tsConfig": "projects/angular-swipe-list/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-swipe-list/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/swipe-list/tsconfig.lib.json",
-              "projects/swipe-list/tsconfig.spec.json"
+              "projects/angular-swipe-list/tsconfig.lib.json",
+              "projects/angular-swipe-list/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

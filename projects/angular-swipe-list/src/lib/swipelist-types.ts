@@ -1,16 +1,16 @@
-export class SwipelistData {
+export interface SwipelistData {
     label: string;
     value?: string;
     defaultStartIndex?: number;
 }
 
-export class SwipelistState {
+export interface SwipelistState {
     value: string;
     color?: string;
     label?: string;
 }
 
-export class SwipelistOptions {
+export interface SwipelistOptions {
     states?: SwipelistState[];
     hasStates?: boolean;
     colorCenter?: string;

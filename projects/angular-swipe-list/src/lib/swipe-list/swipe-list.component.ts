@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SwipelistData, SwipelistOptions } from 'src/app/swipelist-types';
+import { defaultOptions } from '../swipe-cell/swipe-cell.component';
+import { SwipelistData } from '../swipelist-types';
 
 @Component({
   selector: 'app-swipe-list',
@@ -8,19 +9,14 @@ import { SwipelistData, SwipelistOptions } from 'src/app/swipelist-types';
 })
 export class SwipeListComponent implements OnInit {
 
-  @Input() options: SwipelistOptions;
-  @Input() data: SwipelistData;
+  @Input() options = Object.assign({}, defaultOptions);
+  @Input() data: SwipelistData[];
 
-  @Output() dataChange = new EventEmitter();
+  @Output() dataChange = new EventEmitter<SwipelistData[]>();
 
   constructor() { }
 
   ngOnInit(): void {
-    if (this.options === undefined) {
-      this.options = {
-        colorText: 'black'
-      };
-    }
   }
 
   transmitMessage(event): void {

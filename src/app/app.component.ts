@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SwipelistData, SwipelistOptions, SwipelistState } from './swipelist-types';
+import { SwipelistData, SwipelistOptions, SwipelistState } from 'angular-swipe-list';
 
 @Component({
   selector: 'app-root',
@@ -76,5 +76,11 @@ export class AppComponent {
 
   onOutput(event) {
     console.log(this.dataToInsertSecond);
+  }
+
+  test() {
+    this.options = {
+      colorText: 'red',
+    };
   }
 }

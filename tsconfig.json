@@ -16,9 +16,9 @@
       "dom"
     ],
     "paths": {
-      "swipe-list": [
-        "dist/swipe-list/swipe-list",
-        "dist/swipe-list"
+      "angular-swipe-list": [
+        "dist/angular-swipe-list/angular-swipe-list",
+        "dist/angular-swipe-list"
       ]
     }
   },

@@ -1,7 +1,21 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { StandardvaluesService } from '../standardvalues.service';
 import { SwipelistData, SwipelistOptions, SwipelistState } from '../swipelist-types';
+
+export const defaultOptions: SwipelistOptions = {
+  states: [{
+    value: 'left',
+    color: 'rgb(200, 200, 200)'
+  },
+  {
+    value: 'right',
+    color: 'rgb(200, 200, 200)'
+  }],
+  hasStates: true,
+  height: '50px',
+  colorCenter: 'rgb(256, 256, 256)',
+  colorText: 'black'
+};
 
 @Component({
   selector: 'app-swipe-cell',
@@ -22,7 +36,13 @@ import { SwipelistData, SwipelistOptions, SwipelistState } from '../swipelist-ty
 })
 export class SwipeCellComponent implements OnInit {
 
-  @Input() options: SwipelistOptions;
+  private _options = Object.assign({}, defaultOptions);
+  @Input()
+  get options() { return this._options; }
+  set options(options: SwipelistOptions) {
+    Object.assign(this._options, defaultOptions, options);
+  }
+
   @Input() data: SwipelistData;
 
   leftState: SwipelistState = {
@@ -36,7 +56,7 @@ export class SwipeCellComponent implements OnInit {
     color: 'rgba(0, 0, 0, 0)'
   };
 
-  @Output() dataChange = new EventEmitter();
+  @Output() dataChange = new EventEmitter<SwipelistData>();
 
   @ViewChild('leftDiv') leftElement: ElementRef;
   @ViewChild('cell') elementToMove: ElementRef;
@@ -59,18 +79,9 @@ export class SwipeCellComponent implements OnInit {
     label: ''
   };
 
-  constructor(
-    private renderer: Renderer2,
-    private standardvalueService: StandardvaluesService) {
-  }
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {
-    this.options = this.standardvalueService
-      .getStandardOptionValues(this.options);
-
-    this.data = this.standardvalueService
-      .getStandardDataValues(this.data);
-
     this.setGradient();
     this.setDefaultActiveState();
     this.setLeftAndRightStates();
@@ -82,9 +93,8 @@ export class SwipeCellComponent implements OnInit {
   }
 
   private setDefaultActiveState(): void {
-    this.activeState.index = this.data.defaultStartIndex;
-    this.activeState.label = this.options.states[this.data.defaultStartIndex].value;
-    this.data.value = this.options.states[this.data.defaultStartIndex].value;
+    this.activeState.index = this.data.defaultStartIndex || 0;
+    this.activeState.label = this.data.value = this.options.states[this.activeState.index].value;
   }
 
   private setLeftAndRightStates(): void {
