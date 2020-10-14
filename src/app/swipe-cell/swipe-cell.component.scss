@@ -1,0 +1,40 @@
+.swipe-cell-componenent {
+    display: flex;
+    width: 100%;
+}
+
+.swipe-inner-cell {
+    flex: 1; 
+    overflow: hidden;
+}
+
+.swipe-list-element {
+    position: relative;
+    width: 104%;
+    margin-left: -2%;
+}
+
+.swipe-cell-label {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.swipe-cell-background {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    margin-left: 100%;
+}
+
+.swipe-left-element {
+    margin-left: -100%;
+}
+
+.swipe-state-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
