@@ -3,7 +3,7 @@ import { defaultOptions } from '../swipe-cell/swipe-cell.component';
 import { SwipelistData } from '../swipelist-types';
 
 @Component({
-  selector: 'app-swipe-list',
+  selector: 'n3-swipe-list',
   templateUrl: './swipe-list.component.html',
   styleUrls: ['./swipe-list.component.scss']
 })

@@ -14,11 +14,12 @@ export const defaultOptions: SwipelistOptions = {
   hasStates: true,
   height: '50px',
   colorCenter: 'rgb(256, 256, 256)',
-  colorText: 'black'
+  colorText: 'black',
+  colorStatePanel: 'rgb(173, 173, 173)'
 };
 
 @Component({
-  selector: 'app-swipe-cell',
+  selector: 'n3-swipe-cell',
   templateUrl: './swipe-cell.component.html',
   styleUrls: ['./swipe-cell.component.scss'],
   animations: [
