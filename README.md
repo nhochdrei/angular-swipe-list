@@ -1,27 +1,18 @@
-# SwipeListTest
+## Install
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+`npm i @nhochdrei/angular-swipe-list --save`
 
-## Development server
+To bee able to use it, don't forget to import the `SwipeListModule` in your app.module.ts.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Use
 
-## Code scaffolding
+For the basic setup you need the ```<n3-swipe-list [data]="dataArray"></n3-swipe-list>``` html part and, of course, the object itself.
+The advanced version: ```<n3-swipe-list [data]="dataArray" [options]="optionObject"></n3-swipe-list>```, you can use the `options` binding to style the list or to set own states.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Speaking of states, this swipe-list is capable of an additional display of the actual state which your list element is in.
 
-## Build
+### Data
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Options
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### States
