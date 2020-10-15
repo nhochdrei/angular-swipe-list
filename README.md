@@ -4,6 +4,8 @@
 
 To bee able to use it, don't forget to import the `SwipeListModule` in your app.module.ts.
 
+>**This swipe-list works only on mobile devices and thus in-browser mobile mode too.**
+
 ## Demo
 
 [Stackblitz](https://stackblitz.com/edit/angular-swipe-list-demo)
@@ -22,6 +24,15 @@ The advanced version:
 You can use the `options` binding to style the list or to set own states.
 
 Speaking of states, this swipe-list is capable of an additional display of the actual state which your list element is in.
+
+`data` can be a two-way binding. You can use the `(dataChange)` event too, this event is triggered on every swipe. Your `data` object will update automatically on every swipe no matter if you're listing on the object or not.
+```html
+<n3-swipe-list
+  [data]="dataToInsert"
+  [options]="options"
+  (dataChange)="onDataChange()">
+</n3-swipe-list>
+```
 
 ### Structure
 
