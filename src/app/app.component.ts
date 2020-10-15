@@ -41,8 +41,6 @@ export class AppComponent {
     colorCenter: 'rgb(37, 39, 44)',
     colorStatePanel: 'rgb(0, 0, 0)',
     colorText: 'white',
-    leftLabel: 'hinten',
-    rightLabel: 'vorne',
     borderRadius: '4px',
     height: '100px',
     statePanelWidth: '50px',

@@ -16,8 +16,6 @@ export interface SwipelistOptions {
     colorCenter?: string;
     colorStatePanel?: string;
     colorText?: string;
-    leftLabel?: string;
-    rightLabel?: string;
     borderRadius?: string;
     height?: string;
     statePanelWidth?: string;
