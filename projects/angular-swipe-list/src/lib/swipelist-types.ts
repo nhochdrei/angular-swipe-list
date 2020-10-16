@@ -8,6 +8,8 @@ export interface SwipelistState {
     value: string;
     color?: string;
     label?: string;
+    matIcon?: string;
+    customIcon?: string;
 }
 
 export interface SwipelistOptions {

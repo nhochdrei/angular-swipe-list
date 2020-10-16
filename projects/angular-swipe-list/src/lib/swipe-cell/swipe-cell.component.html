@@ -1,28 +1,35 @@
 <div class="swipe-cell-componenent" [style.color]="options.colorText">
     <div class="swipe-inner-cell">
-            <div #cell [ngStyle]="{ 'background-image': linearGradientString }" class="swipe-list-element"
-                [style.height]="options.height" [@touchEnd]="swiped ? 'swiped' : 'initial'">
-                <div [ngStyle]="{ 'background-color': options.colorCenter,
+        <div #cell [ngStyle]="{ 'background-image': linearGradientString }" class="swipe-list-element"
+            [style.height]="options.height" [@touchEnd]="swiped ? 'swiped' : 'initial'">
+            <div [ngStyle]="{ 'background-color': options.colorCenter,
                          'border-radius': options.borderRadius }" class="swipe-cell-label">
-                    {{data.label}}
-                </div>
-                <div [style.background-color]="leftState.color" class="swipe-cell-label swipe-cell-background 
-            swipe-left-element">
-                    {{leftState.label}}
-                </div>
-                <div [style.background-color]="rightState.color" class="swipe-cell-label swipe-cell-background">
-                    {{rightState.label}}
-                </div>
+                {{data.label}}
             </div>
+            <div [style.background-color]="leftState.color" class="swipe-cell-label swipe-cell-background 
+            swipe-left-element">
+                {{leftState.label}}
+            </div>
+            <div [style.background-color]="rightState.color" class="swipe-cell-label swipe-cell-background">
+                {{rightState.label}}
+            </div>
+        </div>
     </div>
 
     <div *ngIf="options.hasStates" [style.background-color]="options.colorStatePanel">
-        <div class="swipe-state-panel"
-        [ngStyle]="{
+        <div class="swipe-state-panel" [ngStyle]="{
             'height': options.height,
             'width': options.statePanelWidth
         }">
-            {{activeState.label}}
+            <div *ngIf="!activeState.hasMatIcon && !activeState.hasCustomIcon || activeState.hasMatIcon && activeState.hasCustomIcon">
+                {{activeState.label}}
+            </div>
+
+            <span *ngIf="activeState.hasMatIcon && !activeState.hasCustomIcon" class="material-icons">
+                {{activeState.matIcon}}
+            </span>
+
+            <div *ngIf="activeState.hasCustomIcon && !activeState.hasMatIcon" [innerHTML]="activeState.customIcon"></div>
         </div>
     </div>
 

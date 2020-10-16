@@ -18,17 +18,20 @@ export class AppComponent {
     {
       value: 'A',
       color: 'rgb(6, 182, 0)',
-      label: 'Automatisch'
+      label: 'Automatisch',
+      matIcon: 'code'
     },
     {
       value: 'M',
       color: 'rgb(80, 120, 120)',
-      label: 'Manuell'
+      label: 'Manuell',
+      customIcon: '<span>T 9500</span>'
     },
     {
       value: 'X',
       color: 'rgb(50, 120, 180)',
-      label: 'XMas'
+      label: 'XMas',
+      matIcon: 'http'
     },
     {
       value: 'Y',
@@ -51,11 +54,11 @@ export class AppComponent {
   dataToInsert: SwipelistData[] = [
     {
       label: 'Test1',
-      defaultStartIndex: 0
+      defaultStartIndex: 1
     },
     {
       label: 'Schrift',
-      defaultStartIndex: 0
+      defaultStartIndex: 2
     },
     {
       label: 'Test',
@@ -72,13 +75,7 @@ export class AppComponent {
     }
   ];
 
-  onOutput(event) {
+  onOutput() {
     console.log(this.dataToInsertSecond);
-  }
-
-  test() {
-    this.options = {
-      colorText: 'red',
-    };
   }
 }

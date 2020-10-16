@@ -77,10 +77,14 @@ export class SwipeCellComponent implements OnInit {
   swipedRight = false;
   activeState = {
     index: 0,
-    label: ''
+    label: '',
+    hasMatIcon: false,
+    matIcon: '',
+    hasCustomIcon: false,
+    customIcon: ''
   };
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.setGradient();
@@ -96,6 +100,12 @@ export class SwipeCellComponent implements OnInit {
   private setDefaultActiveState(): void {
     this.activeState.index = this.data.defaultStartIndex || 0;
     this.activeState.label = this.data.value = this.options.states[this.activeState.index].value;
+
+    if (this.options.states[this.activeState.index].matIcon !== undefined) { this.activeState.hasMatIcon = true; }
+    this.activeState.matIcon = this.options.states[this.activeState.index].matIcon || '';
+    if (this.options.states[this.activeState.index].customIcon !== undefined) { this.activeState.hasCustomIcon = true; }
+    this.activeState.customIcon = this.options.states[this.activeState.index].customIcon || '';
+
   }
 
   private setLeftAndRightStates(): void {
@@ -123,16 +133,34 @@ export class SwipeCellComponent implements OnInit {
     this.setGradient();
   }
 
+  private updateLabelOnSwipe(): void {
+    if (this.options.states[this.activeState.index].matIcon !== undefined) {
+      this.activeState.hasMatIcon = true;
+    } else {
+      this.activeState.hasMatIcon = false;
+    }
+
+    if (this.options.states[this.activeState.index].customIcon !== undefined) {
+      this.activeState.hasCustomIcon = true;
+    } else {
+      this.activeState.hasCustomIcon = false;
+    }
+
+    this.activeState.matIcon = this.options.states[this.activeState.index].matIcon || '';
+    this.activeState.customIcon = this.options.states[this.activeState.index].customIcon || '';
+
+    this.activeState.label =
+      this.options.states[this.activeState.index].value;
+    this.data.value =
+      this.options.states[this.activeState.index].value;
+  }
+
   private afterSwipeLeft(): void {
     this.dataChange.emit(this.data);
 
     if ((this.activeState.index - 1) >= 0) {
       this.activeState.index--;
-
-      this.activeState.label =
-        this.options.states[this.activeState.index].value;
-      this.data.value =
-        this.options.states[this.activeState.index].value;
+      this.updateLabelOnSwipe();
     }
   }
 
@@ -142,11 +170,7 @@ export class SwipeCellComponent implements OnInit {
     if ((this.activeState.index + 1)
       < this.options.states.length) {
       this.activeState.index++;
-
-      this.activeState.label =
-        this.options.states[this.activeState.index].value;
-      this.data.value =
-        this.options.states[this.activeState.index].value;
+      this.updateLabelOnSwipe();
     }
   }
 
@@ -190,6 +214,7 @@ export class SwipeCellComponent implements OnInit {
     this.firstX = undefined;
     this.swiped = false;
     this.afterSwiped();
+    this.relativeX = 0;
   }
 
   private positionElement(): void {

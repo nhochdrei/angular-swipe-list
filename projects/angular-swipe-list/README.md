@@ -98,6 +98,8 @@ SwipelistState {
     value: string;
     color?: string;
     label?: string;
+    matIcon?: string;
+    customIcon?: string;
 }
 ```
 `value`: The value which will be displayed and set to your `data` object
@@ -105,3 +107,7 @@ SwipelistState {
 `color`: The colour which will be displayed while swiping
 
 `label`: The text which will be displayed while swiping
+
+`matIcon`: If you use angular material icons just write the name of the icon down here
+
+`customIcon`: Use this if you want to use a none material design icon
