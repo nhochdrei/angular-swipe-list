@@ -4,8 +4,6 @@
 
 To bee able to use it, don't forget to import the `SwipeListModule` in your app.module.ts.
 
->**This swipe-list works only on mobile devices and thus in-browser mobile mode too.**
-
 ## Demo
 
 [Stackblitz](https://stackblitz.com/edit/angular-swipe-list-demo)
@@ -108,6 +106,8 @@ SwipelistState {
 
 `label`: The text which will be displayed while swiping
 
-`matIcon`: If you use angular material icons just write the name of the icon down here
+`matIcon`: If you use material icons just write the name of the icon down here
 
 `customIcon`: Use this if you want to use a none material design icon
+
+>You should be able to use the material icons if you use `ng add @angular/material`. Otherwise look at [Material Icons](https://material.io/resources/icons/?style=baseline)

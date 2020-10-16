@@ -183,10 +183,11 @@ export class SwipeCellComponent implements OnInit {
   }
 
   @HostListener('touchstart') onTouchStart() {
-    this.localSavedInnerWidth = window.innerWidth;
-    this.swiped = true;
+    this.onSwipeStart();
+  }
 
-    this.onSwipe();
+  @HostListener('mousedown') onMouseDown() {
+    this.onSwipeStart();
   }
 
   @HostListener('touchmove', ['$event']) onTouchMove(event: TouchEvent) {
@@ -207,10 +208,49 @@ export class SwipeCellComponent implements OnInit {
         this.positionElement();
       }
     }
+  }
 
+  @HostListener('mousemove', ['$event']) onMouseMove(event: MouseEvent) {
+    if (this.swiped === true) {
+      if (this.firstX === undefined) {
+        this.firstX = event.screenX;
+      }
+
+      const actualX = event.screenX;
+      this.relativeX = (this.firstX - actualX) * -1;
+
+      if (this.relativeX > 0) {
+        if (this.relativeX < this.localSavedInnerWidth) {
+          this.positionElement();
+        }
+      } else {
+        if (this.relativeX > (this.localSavedInnerWidth * -1)) {
+          this.positionElement();
+        }
+      }
+    }
   }
 
   @HostListener('touchend') onTouchEnd() {
+    this.onSwipeEnd();
+  }
+
+  @HostListener('mouseup') onMouseUp() {
+    this.onSwipeEnd();
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.onSwipeEnd();
+  }
+
+  private onSwipeStart(): void {
+    this.localSavedInnerWidth = window.innerWidth;
+    this.swiped = true;
+
+    this.onSwipe();
+  }
+
+  private onSwipeEnd(): void {
     this.firstX = undefined;
     this.swiped = false;
     this.afterSwiped();
