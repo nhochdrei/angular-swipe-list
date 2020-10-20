@@ -1,3 +1,5 @@
+!(swipelist1.png)
+
 ## Install
 
 `npm i @nhochdrei/angular-swipe-list --save`
@@ -58,7 +60,7 @@ statesToInsert: SwipelistState[] = [
     {
       value: 'Y',
       color: 'rgb(80, 120, 120)',
-      label: 'Y Wing Geschwader',
+      label: 'Y wing squadron',
       customIcon: '<span>T 9500</span>'
     }
   ];

@@ -60,11 +60,11 @@ export class AppComponent {
       defaultStartIndex: 1
     },
     {
-      label: 'Schrift',
+      label: 'Test2',
       defaultStartIndex: 2
     },
     {
-      label: 'Test',
+      label: 'Test3',
       defaultStartIndex: 0
     }
   ];
