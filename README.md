@@ -25,7 +25,18 @@ dataArray: SwipelistData[] = [
 ];
 ```
 
-The advanced version:
+### Structure
+
+The basic setup for a list without the displaying of the state consists of a list of swipe-cells. Each swipe-cell has a left, right and centre element. The middle element is the one which shows the label from the data object.
+
+The left and right elements can be seen if you're swiping to one of the directions. In this case, the right element is placed right, you can see it if you're swiping to the left side.
+
+This swipe-list is capable of an additional display of the actual state which your list element is in.
+There is no limit to the number of states you can use, that's where the `defaultStartIndex` comes to life. For example, You want to use 3 different states, `delete`, `archive` and `spam`.
+In our little example, the goal is a list where the user can select the needed operations on multiple elements. After the user selected all the operations she/he clicks a button and all the operations get executed.
+To display the active state of each element we use the `options.hasStates` and set it to true. On every row, the standard state is set to `delete` for now. To change that just set the `defaultStartIndex` to 1. Now the standard state is `archive`, the counting starts from 0.
+
+### The advanced version:
 ```html
 <n3-swipe-list [data]="dataArray" [options]="options" (singleChangedData)="onOutput($event)">
 ```
@@ -55,9 +66,9 @@ statesToInsert: SwipelistState[] = [
 Options:
 ```typescript
 options: SwipelistOptions = {
-	states: this.statesToInsert,
-	statePanelWidth: '60px',
-	stateFontSize: '12pt',
+    states: this.statesToInsert,
+    statePanelWidth: '60px',
+    stateFontSize: '12pt',
     colorCenter: 'rgb(37, 39, 44)',
     colorStatePanel: 'rgb(0, 0, 0)',
     colorText: 'white',
@@ -86,7 +97,7 @@ dataArray: SwipelistData[] = [
   ];
 ```
 Output:
-```
+```typescript
 onOutput(event): void {
     const newData: SwipelistData = event;
     console.log(newData);
@@ -96,22 +107,12 @@ onOutput(event): void {
 
 ```html
 <n3-swipe-list
-  [data]="dataToInsert"
+  [data]="dataArray"
   [options]="options"
   (dataChange)="onDataChange()"
   (singleChangedData)="onOutput($event)">
 </n3-swipe-list>
 ```
-
-### Structure
-
-The basic setup for a list without the displaying of the state consists of a list of swipe-cells. Each swipe-cell has a left, right and centre element. The middle element is the one which shows the label from the data object.
-
-The left and right elements can be seen if you're swiping to one of the directions. In this case, the right element is placed right, you can see it if you're swiping to the left side.
-
-There is no limit to the number of states you can use, that's where the `defaultStartIndex` comes to life. For example, You want to use 3 different states, `delete`, `archive` and `spam`.
-In our little example, the goal is a list where the user can select the needed operations on multiple elements. After the user selected all the operations she/he clicks a button and all the operations get executed.
-To display the active state of each element we use the `options.hasStates` and set it to true. On every row, the standard state is set to `delete` for now. To change that just set the `defaultStartIndex` to 1. Now the standard state is `archive`, the counting starts from 0.
 
 ### Data
 
