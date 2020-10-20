@@ -202,10 +202,10 @@ SwipelistState {
 
 `label`: The text which will be displayed while swiping
 
-`matIcon`: If you use material icons just write the name of the icon down here
+`matIcon`: If you use material icons just write the name of the icon down here - you can get the icons from [Material Icons](https://material.io/resources/icons/?style=baseline)
 
 `matIconStyling`: This field can be used to further style the material icon, use full wrote out css statements like this: `color: rgb(120, 180, 120); font-size: 36px;`
 
 `customIcon`: Use this if you want to use a none material design icon
 
->You should be able to use the material icons if you use `ng add @angular/material`. Otherwise look at [Material Icons](http://google.github.io/material-design-icons/)
+>You should be able to use the material icons if you use `ng add @angular/material`. Otherwise look at [Material Icons Instructions](http://google.github.io/material-design-icons/)
