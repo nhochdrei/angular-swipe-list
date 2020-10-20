@@ -64,14 +64,21 @@ SwipelistOptions object:
 SwipelistOptions {
     states?: SwipelistState[];
     hasStates?: boolean;
+    statesAtLeft?: boolean;
+    statePanelWidth?: string;
+    stateFontSize?: string;
     colorCenter?: string;
     colorStatePanel?: string;
     colorText?: string;
     borderRadius?: string;
     height?: string;
-    statePanelWidth?: string;
+    listFontsize?: string;
+    minSwipePercent?: string;
+    maxSwipePx?: string;
 }
 ```
+>Each value has to be in a css readable format! For example `rgb(0,0,0)` or `20px`
+
 `states`: An array of states
 
 `hasStates`: If you want to display the actual state, this has to be true. You can set your own states anyways, they will get used
@@ -110,4 +117,4 @@ SwipelistState {
 
 `customIcon`: Use this if you want to use a none material design icon
 
->You should be able to use the material icons if you use `ng add @angular/material`. Otherwise look at [Material Icons](https://material.io/resources/icons/?style=baseline)
+>You should be able to use the material icons if you use `ng add @angular/material`. Otherwise look at [Material Icons](http://google.github.io/material-design-icons/)

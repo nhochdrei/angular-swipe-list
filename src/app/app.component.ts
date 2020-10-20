@@ -19,7 +19,8 @@ export class AppComponent {
       value: 'A',
       color: 'rgb(6, 182, 0)',
       label: 'Automatisch',
-      matIcon: 'code'
+      matIcon: 'code',
+      matIconStyling: 'color: rgb(120, 180, 120); font-size: 36px;'
     },
     {
       value: 'M',
@@ -30,8 +31,7 @@ export class AppComponent {
     {
       value: 'X',
       color: 'rgb(50, 120, 180)',
-      label: 'XMas',
-      matIcon: 'http'
+      label: 'XMas'
     },
     {
       value: 'Y',
@@ -41,14 +41,17 @@ export class AppComponent {
   ];
 
   options: SwipelistOptions = {
+    states: this.statesToInsert,
+    statePanelWidth: '60px',
+    stateFontSize: '12pt',
     colorCenter: 'rgb(37, 39, 44)',
     colorStatePanel: 'rgb(0, 0, 0)',
     colorText: 'white',
     borderRadius: '4px',
     height: '100px',
-    statePanelWidth: '50px',
-    hasStates: true,
-    states: this.statesToInsert
+    listFontsize: '12pt',
+    minSwipePercent: 30,
+    maxSwipePx: 700
   };
 
   dataToInsert: SwipelistData[] = [
@@ -75,7 +78,8 @@ export class AppComponent {
     }
   ];
 
-  onOutput() {
-    console.log(this.dataToInsertSecond);
+  onOutput(event): void {
+    const newData: SwipelistData = event;
+    console.log(newData);
   }
 }

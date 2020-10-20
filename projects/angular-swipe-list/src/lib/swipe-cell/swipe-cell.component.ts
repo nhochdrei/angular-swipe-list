@@ -12,10 +12,15 @@ export const defaultOptions: SwipelistOptions = {
     color: 'rgb(200, 200, 200)'
   }],
   hasStates: true,
+  statesAtLeft: false,
+  stateFontSize: '12pt',
+  displayStateValue: true,
   height: '50px',
+  listFontsize: '12pt',
   colorCenter: 'rgb(256, 256, 256)',
   colorText: 'black',
-  colorStatePanel: 'rgb(173, 173, 173)'
+  colorStatePanel: 'rgb(173, 173, 173)',
+  minSwipePercent: 20
 };
 
 @Component({
@@ -63,11 +68,9 @@ export class SwipeCellComponent implements OnInit {
   @ViewChild('cell') elementToMove: ElementRef;
   @ViewChild('rightDiv') rightElement: ElementRef;
 
-  leftswipeDetectvalue = -150;
-  rightswipeDetectvalue = 150;
-
   linearGradientString: string;
 
+  private actualScreenWidth: number;
   private firstX: number;
   private relativeX: number;
   private localSavedInnerWidth: number;
@@ -78,8 +81,10 @@ export class SwipeCellComponent implements OnInit {
   activeState = {
     index: 0,
     label: '',
+    color: 'rgb(0, 0, 0)',
     hasMatIcon: false,
     matIcon: '',
+    matIconStyling: '',
     hasCustomIcon: false,
     customIcon: ''
   };
@@ -90,6 +95,7 @@ export class SwipeCellComponent implements OnInit {
     this.setGradient();
     this.setDefaultActiveState();
     this.setLeftAndRightStates();
+    this.setActiveScreenWidth();
   }
 
   private setGradient(): void {
@@ -99,12 +105,17 @@ export class SwipeCellComponent implements OnInit {
 
   private setDefaultActiveState(): void {
     this.activeState.index = this.data.defaultStartIndex || 0;
-    this.activeState.label = this.data.value = this.options.states[this.activeState.index].value;
+    const statesTmp = this.options.states[this.activeState.index];
 
-    if (this.options.states[this.activeState.index].matIcon !== undefined) { this.activeState.hasMatIcon = true; }
-    this.activeState.matIcon = this.options.states[this.activeState.index].matIcon || '';
-    if (this.options.states[this.activeState.index].customIcon !== undefined) { this.activeState.hasCustomIcon = true; }
-    this.activeState.customIcon = this.options.states[this.activeState.index].customIcon || '';
+    this.activeState.label = this.data.value = statesTmp.value;
+    if (statesTmp.color && this.options.useColorOfStates) { this.activeState.color = this.options.colorStatePanel = statesTmp.color; }
+
+    if (statesTmp.matIcon !== undefined) { this.activeState.hasMatIcon = true; }
+    this.activeState.matIcon = statesTmp.matIcon || '';
+    this.activeState.matIconStyling = statesTmp.matIconStyling || '';
+
+    if (statesTmp.customIcon !== undefined) { this.activeState.hasCustomIcon = true; }
+    this.activeState.customIcon = statesTmp.customIcon || '';
 
   }
 
@@ -128,31 +139,40 @@ export class SwipeCellComponent implements OnInit {
     }
   }
 
+  private setActiveScreenWidth(): void {
+    this.actualScreenWidth = window.innerWidth;
+  }
+
   private onSwipe(): void {
     this.setLeftAndRightStates();
     this.setGradient();
   }
 
   private updateLabelOnSwipe(): void {
-    if (this.options.states[this.activeState.index].matIcon !== undefined) {
+    const statesTmp = this.options.states[this.activeState.index];
+
+    if (statesTmp.matIcon !== undefined) {
       this.activeState.hasMatIcon = true;
+      this.activeState.matIconStyling = statesTmp.matIconStyling || '';
     } else {
       this.activeState.hasMatIcon = false;
     }
 
-    if (this.options.states[this.activeState.index].customIcon !== undefined) {
+    if (statesTmp.customIcon !== undefined) {
       this.activeState.hasCustomIcon = true;
     } else {
       this.activeState.hasCustomIcon = false;
     }
 
-    this.activeState.matIcon = this.options.states[this.activeState.index].matIcon || '';
-    this.activeState.customIcon = this.options.states[this.activeState.index].customIcon || '';
+    this.activeState.matIcon = statesTmp.matIcon || '';
+    this.activeState.customIcon = statesTmp.customIcon || '';
+
+    if (statesTmp.color && this.options.useColorOfStates) { this.activeState.color = this.options.colorStatePanel = statesTmp.color; }
 
     this.activeState.label =
-      this.options.states[this.activeState.index].value;
+      statesTmp.value;
     this.data.value =
-      this.options.states[this.activeState.index].value;
+      statesTmp.value;
   }
 
   private afterSwipeLeft(): void {
@@ -175,11 +195,19 @@ export class SwipeCellComponent implements OnInit {
   }
 
   private afterSwiped(): void {
-    if (this.relativeX <= this.leftswipeDetectvalue) {
+    const rightswipeDetectvalue = this.actualScreenWidth / 100 * this.options.minSwipePercent;
+    const leftswipeDetectvalue = rightswipeDetectvalue * -1;
+
+    if (this.relativeX <= leftswipeDetectvalue || this.relativeX <= (this.options.maxSwipePx * -1)) {
       this.afterSwipeLeft();
-    } else if (this.relativeX >= this.rightswipeDetectvalue) {
+    } else if (this.relativeX >= rightswipeDetectvalue || this.relativeX >= this.options.maxSwipePx) {
       this.afterSwipeRight();
     }
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.setActiveScreenWidth();
   }
 
   @HostListener('touchstart') onTouchStart() {

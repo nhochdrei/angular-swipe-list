@@ -13,6 +13,7 @@ export class SwipeListComponent implements OnInit {
   @Input() data: SwipelistData[];
 
   @Output() dataChange = new EventEmitter<SwipelistData[]>();
+  @Output() singleChangedData = new EventEmitter<SwipelistData>();
 
   constructor() { }
 
@@ -20,6 +21,7 @@ export class SwipeListComponent implements OnInit {
   }
 
   transmitMessage(event): void {
+    this.singleChangedData.emit(event);
     this.dataChange.emit(this.data);
   }
 

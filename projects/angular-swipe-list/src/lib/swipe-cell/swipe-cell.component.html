@@ -1,9 +1,30 @@
 <div class="swipe-cell-componenent" [style.color]="options.colorText">
+
+    <div *ngIf="options.hasStates && options.statesAtLeft" [style.background-color]="options.colorStatePanel">
+        <div class="swipe-state-panel" [ngStyle]="{
+            'height': options.height,
+            'width': options.statePanelWidth,
+            'font-size': options.stateFontSize
+        }">
+            <div *ngIf="!activeState.hasMatIcon && !activeState.hasCustomIcon && options.displayStateValue
+            || activeState.hasMatIcon && activeState.hasCustomIcon && options.displayStateValue">
+                {{activeState.label}}
+            </div>
+
+            <span *ngIf="activeState.hasMatIcon && !activeState.hasCustomIcon && options.displayStateValue" [style]="activeState.matIconStyling" class="material-icons">
+                {{activeState.matIcon}}
+            </span>
+
+            <div *ngIf="activeState.hasCustomIcon && !activeState.hasMatIcon && options.displayStateValue" [innerHTML]="activeState.customIcon"></div>
+        </div>
+    </div>
+
     <div class="swipe-inner-cell">
         <div #cell [ngStyle]="{ 'background-image': linearGradientString }" class="swipe-list-element"
             [style.height]="options.height" [@touchEnd]="swiped ? 'swiped' : 'initial'">
             <div [ngStyle]="{ 'background-color': options.colorCenter,
-                         'border-radius': options.borderRadius }" class="swipe-cell-label">
+                         'border-radius': options.borderRadius,
+                        'font-size': options.listFontsize }" class="swipe-cell-label">
                 {{data.label}}
             </div>
             <div [style.background-color]="leftState.color" class="swipe-cell-label swipe-cell-background 
@@ -16,20 +37,22 @@
         </div>
     </div>
 
-    <div *ngIf="options.hasStates" [style.background-color]="options.colorStatePanel">
+    <div *ngIf="options.hasStates && !options.statesAtLeft" [style.background-color]="options.colorStatePanel">
         <div class="swipe-state-panel" [ngStyle]="{
             'height': options.height,
-            'width': options.statePanelWidth
+            'width': options.statePanelWidth,
+            'font-size': options.stateFontSize
         }">
-            <div *ngIf="!activeState.hasMatIcon && !activeState.hasCustomIcon || activeState.hasMatIcon && activeState.hasCustomIcon">
+            <div *ngIf="!activeState.hasMatIcon && !activeState.hasCustomIcon && options.displayStateValue 
+            || activeState.hasMatIcon && activeState.hasCustomIcon && options.displayStateValue">
                 {{activeState.label}}
             </div>
 
-            <span *ngIf="activeState.hasMatIcon && !activeState.hasCustomIcon" class="material-icons">
+            <span *ngIf="activeState.hasMatIcon && !activeState.hasCustomIcon && options.displayStateValue" [style]="activeState.matIconStyling" class="material-icons">
                 {{activeState.matIcon}}
             </span>
 
-            <div *ngIf="activeState.hasCustomIcon && !activeState.hasMatIcon" [innerHTML]="activeState.customIcon"></div>
+            <div *ngIf="activeState.hasCustomIcon && !activeState.hasMatIcon && options.displayStateValue" [innerHTML]="activeState.customIcon"></div>
         </div>
     </div>
 
