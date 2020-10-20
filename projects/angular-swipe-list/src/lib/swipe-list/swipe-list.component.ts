@@ -21,9 +21,6 @@ export class SwipeListComponent implements OnInit {
   }
 
   transmitMessage(event): void {
-    console.log(event);
-    console.log(this.data);
-
     this.singleChangedData.emit(event);
     this.dataChange.emit(this.data);
   }
