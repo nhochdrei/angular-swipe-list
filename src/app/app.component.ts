@@ -80,6 +80,6 @@ export class AppComponent {
 
   onOutput(event): void {
     const newData: SwipelistData = event;
-    console.log(newData);
+    // console.log(newData);
   }
 }

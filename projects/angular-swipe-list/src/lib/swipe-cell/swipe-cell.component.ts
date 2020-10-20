@@ -176,22 +176,22 @@ export class SwipeCellComponent implements OnInit {
   }
 
   private afterSwipeLeft(): void {
-    this.dataChange.emit(this.data);
-
     if ((this.activeState.index - 1) >= 0) {
       this.activeState.index--;
       this.updateLabelOnSwipe();
     }
+
+    this.dataChange.emit(this.data);
   }
 
   private afterSwipeRight(): void {
-    this.dataChange.emit(this.data);
-
     if ((this.activeState.index + 1)
       < this.options.states.length) {
       this.activeState.index++;
       this.updateLabelOnSwipe();
     }
+
+    this.dataChange.emit(this.data);
   }
 
   private afterSwiped(): void {

@@ -1,4 +1,4 @@
-![swipe-list-example](swipelist1.png)
+![swipe-list-example](https://raw.githubusercontent.com/nhochdrei/angular-swipe-list/swipelist1.png)
 
 ## Install
 
