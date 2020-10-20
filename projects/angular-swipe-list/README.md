@@ -1,4 +1,4 @@
-!(swipelist1.png)
+![swipe-list-example](swipelist1.png)
 
 ## Install
 
