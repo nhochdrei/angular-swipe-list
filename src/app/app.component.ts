@@ -83,7 +83,7 @@ export class AppComponent {
     // console.log(newData);
   }
 
-  onTouch() {
-    console.log('onTouchTriggered');
+  onTouch(event) {
+    console.log(event);
   }
 }

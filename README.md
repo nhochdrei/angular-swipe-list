@@ -112,7 +112,8 @@ onOutput(event): void {
   [data]="dataArray"
   [options]="options"
   (dataChange)="onDataChange()"
-  (singleChangedData)="onOutput($event)">
+  (singleChangedData)="onOutput($event)
+  (touch)="onTouch($event)">
 </n3-swipe-list>
 ```
 

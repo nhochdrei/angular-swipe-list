@@ -1,4 +1,4 @@
-![swipe-list-example](https://raw.githubusercontent.com/nhochdrei/angular-swipe-list/master/swipelist1.png)
+![swipe-list-example](swipelist1.png)
 
 ## Install
 
@@ -112,7 +112,8 @@ onOutput(event): void {
   [data]="dataArray"
   [options]="options"
   (dataChange)="onDataChange()"
-  (singleChangedData)="onOutput($event)">
+  (singleChangedData)="onOutput($event)
+  (touch)="onTouch($event)">
 </n3-swipe-list>
 ```
 

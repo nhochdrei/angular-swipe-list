@@ -4,7 +4,7 @@
 </mat-toolbar>
 
 <!-- <mat-card> -->
-  <n3-swipe-list [data]="dataToInsert" [options]="options" (singleChangedData)="onOutput($event)" (touch)="onTouch()">
+  <n3-swipe-list [data]="dataToInsert" [options]="options" (singleChangedData)="onOutput($event)" (touch)="onTouch($event)">
   </n3-swipe-list>
 
   <!-- <app-swipe-list [data]="dataToInsertSecond"
