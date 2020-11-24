@@ -14,6 +14,7 @@ export class SwipeListComponent implements OnInit {
 
   @Output() dataChange = new EventEmitter<SwipelistData[]>();
   @Output() singleChangedData = new EventEmitter<SwipelistData>();
+  @Output() touch = new EventEmitter();
 
   constructor() { }
 
@@ -23,6 +24,10 @@ export class SwipeListComponent implements OnInit {
   transmitMessage(event): void {
     this.singleChangedData.emit(event);
     this.dataChange.emit(this.data);
+  }
+
+  onTouchTriggered(): void {
+    this.touch.emit();
   }
 
 }

@@ -56,7 +56,7 @@ export class AppComponent {
 
   dataToInsert: SwipelistData[] = [
     {
-      label: 'Test1',
+      label: 'Test1 super',
       defaultStartIndex: 1
     },
     {
@@ -81,5 +81,9 @@ export class AppComponent {
   onOutput(event): void {
     const newData: SwipelistData = event;
     // console.log(newData);
+  }
+
+  onTouch() {
+    console.log('onTouchTriggered');
   }
 }

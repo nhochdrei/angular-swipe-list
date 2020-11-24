@@ -63,6 +63,7 @@ export class SwipeCellComponent implements OnInit {
   };
 
   @Output() dataChange = new EventEmitter<SwipelistData>();
+  @Output() touch = new EventEmitter();
 
   @ViewChild('leftDiv') leftElement: ElementRef;
   @ViewChild('cell') elementToMove: ElementRef;
@@ -202,6 +203,8 @@ export class SwipeCellComponent implements OnInit {
       this.afterSwipeLeft();
     } else if (this.relativeX >= rightswipeDetectvalue || this.relativeX >= this.options.maxSwipePx) {
       this.afterSwipeRight();
+    } else {
+      this.touch.emit();
     }
   }
 

@@ -4,7 +4,7 @@
 
 `npm i @nhochdrei/angular-swipe-list --save`
 
-To bee able to use it, don't forget to import the `SwipeListModule` in your app.module.ts.
+To be able to use it, don't forget to import the `SwipeListModule` in your app.module.ts.
 
 ## Demo
 

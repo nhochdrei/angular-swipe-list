@@ -30,8 +30,3 @@ export interface SwipelistOptions {
     minSwipePercent?: number;
     maxSwipePx?: number;
 }
-
-// unbearbeitet:
-/*
-
-*/
