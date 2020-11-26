@@ -123,12 +123,14 @@ The SwipelistData object has the following fields:
 ```typescript
 SwipelistData {
     label: string;
+    id?: any;
     value?: string;
     defaultStartIndex?: number;
 }
 ```
 The only field you have to use to get the swipe-list run is the `label` one. This field represents the list element.
 Each data object will have a value field, at least after the assigned swipe-cell got swiped. After every swipe, the `value` field will hold the state information. The state information is a custom assigned value or, depending on the direction of the swipe, `left` or `right`.
+Use the `id` field to identify your data after a change.
 
 `defaultStartIndex`: An array index to set a default `value` from the states array if you got one
 

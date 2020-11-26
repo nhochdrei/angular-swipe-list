@@ -1,5 +1,6 @@
 export interface SwipelistData {
     label: string;
+    id?: any;
     value?: string;
     defaultStartIndex?: number;
 }
