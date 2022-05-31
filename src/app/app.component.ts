@@ -56,8 +56,40 @@ export class AppComponent {
 
   dataToInsert: SwipelistData[] = [
     {
-      label: 'Test1 super',
+      label: 'Test1 super ajsldkajsdl kajsld jalksj dlkajdlkj',
       defaultStartIndex: 1
+    },
+    {
+      label: 'Test2',
+      defaultStartIndex: 2
+    },
+    {
+      label: 'Test2',
+      defaultStartIndex: 2
+    },
+    {
+      label: 'Test2',
+      defaultStartIndex: 2
+    },
+    {
+      label: 'Test2',
+      defaultStartIndex: 2
+    },
+    {
+      label: 'Test2',
+      defaultStartIndex: 2
+    },
+    {
+      label: 'Test2',
+      defaultStartIndex: 2
+    },
+    {
+      label: 'Test2',
+      defaultStartIndex: 2
+    },
+    {
+      label: 'Test2',
+      defaultStartIndex: 2
     },
     {
       label: 'Test2',
@@ -80,10 +112,8 @@ export class AppComponent {
 
   onOutput(event): void {
     const newData: SwipelistData = event;
-    // console.log(newData);
   }
 
   onTouch(event) {
-    console.log(event);
   }
 }

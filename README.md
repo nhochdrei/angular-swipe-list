@@ -154,6 +154,7 @@ SwipelistOptions {
     listFontsize?: string;
     minSwipePercent?: number;
     maxSwipePx?: number;
+    useSwipeTouch?: boolean;
 }
 ```
 >Each value has to be in a css readable format! For example `rgb(0,0,0)` or `20px`
@@ -187,6 +188,8 @@ SwipelistOptions {
 `minSwipePercent`: The needed percentage of the screen width to detect a swipe
 
 `maxSwipePx`: This variable can be used to prevent a too long swipe on displays with too many pixels
+
+`useSwipeTouch`: If this is true the `touch` output will be triggered whenever the swipe was too small to trigger the `singleChangedData`
 
 ### States
 

@@ -21,11 +21,11 @@
 
     <div class="swipe-inner-cell">
         <div #cell [ngStyle]="{ 'background-image': linearGradientString }" class="swipe-list-element"
-            [style.height]="options.height" [@touchEnd]="swiped ? 'swiped' : 'initial'">
+            [style.height]="options.height" [@touchEnd]="swiping ? 'swiped' : 'initial'">
             <div [ngStyle]="{ 'background-color': options.colorCenter,
                          'border-radius': options.borderRadius,
                         'font-size': options.listFontsize }" class="swipe-cell-label">
-                {{data.label}}
+                <div class="swipe-cell-label-inner"> {{data.label}}</div>
             </div>
             <div [style.background-color]="leftState.color" class="swipe-cell-label swipe-cell-background 
             swipe-left-element">

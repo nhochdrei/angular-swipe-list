@@ -74,8 +74,13 @@ export class SwipeCellComponent implements OnInit {
   private actualScreenWidth: number;
   private firstX: number;
   private relativeX: number;
+  private firstY: number;
+  private relativeY: number;
   private localSavedInnerWidth: number;
-  swiped = false;
+
+  deadSpace = 5;
+  canSwipe = false;
+  swiping = false;
 
   swipedLeft = false;
   swipedRight = false;
@@ -109,34 +114,33 @@ export class SwipeCellComponent implements OnInit {
     const statesTmp = this.options.states[this.activeState.index];
 
     this.activeState.label = this.data.value = statesTmp.value;
-    if (statesTmp.color && this.options.useColorOfStates) { this.activeState.color = this.options.colorStatePanel = statesTmp.color; }
+    if (statesTmp.color && this.options.useColorOfStates) {
+      this.activeState.color = this.options.colorStatePanel = statesTmp.color;
+    }
 
-    if (statesTmp.matIcon !== undefined) { this.activeState.hasMatIcon = true; }
+    if (statesTmp.matIcon !== undefined) {
+      this.activeState.hasMatIcon = true;
+    }
     this.activeState.matIcon = statesTmp.matIcon || '';
     this.activeState.matIconStyling = statesTmp.matIconStyling || '';
 
-    if (statesTmp.customIcon !== undefined) { this.activeState.hasCustomIcon = true; }
+    if (statesTmp.customIcon !== undefined) {
+      this.activeState.hasCustomIcon = true;
+    }
     this.activeState.customIcon = statesTmp.customIcon || '';
-
   }
 
   private setLeftAndRightStates(): void {
-    if ((this.activeState.index - 1) >= 0) {
-      this.rightState = this.options
-        .states[this.activeState.index - 1];
+    if (this.activeState.index - 1 >= 0) {
+      this.rightState = this.options.states[this.activeState.index - 1];
     } else {
-      this.rightState = this.options
-        .states[this.activeState.index];
+      this.rightState = this.options.states[this.activeState.index];
     }
 
-    if ((this.activeState.index + 1)
-      < this.options.states.length) {
-      this.leftState = this.options
-        .states[this.activeState.index + 1];
-
+    if (this.activeState.index + 1 < this.options.states.length) {
+      this.leftState = this.options.states[this.activeState.index + 1];
     } else {
-      this.leftState = this.options
-        .states[this.options.states.length - 1];
+      this.leftState = this.options.states[this.options.states.length - 1];
     }
   }
 
@@ -152,14 +156,14 @@ export class SwipeCellComponent implements OnInit {
   private updateLabelOnSwipe(): void {
     const statesTmp = this.options.states[this.activeState.index];
 
-    if (statesTmp.matIcon !== undefined) {
+    if (statesTmp.matIcon) {
       this.activeState.hasMatIcon = true;
       this.activeState.matIconStyling = statesTmp.matIconStyling || '';
     } else {
       this.activeState.hasMatIcon = false;
     }
 
-    if (statesTmp.customIcon !== undefined) {
+    if (statesTmp.customIcon) {
       this.activeState.hasCustomIcon = true;
     } else {
       this.activeState.hasCustomIcon = false;
@@ -168,16 +172,16 @@ export class SwipeCellComponent implements OnInit {
     this.activeState.matIcon = statesTmp.matIcon || '';
     this.activeState.customIcon = statesTmp.customIcon || '';
 
-    if (statesTmp.color && this.options.useColorOfStates) { this.activeState.color = this.options.colorStatePanel = statesTmp.color; }
+    if (statesTmp.color && this.options.useColorOfStates) {
+      this.activeState.color = this.options.colorStatePanel = statesTmp.color;
+    }
 
-    this.activeState.label =
-      statesTmp.value;
-    this.data.value =
-      statesTmp.value;
+    this.activeState.label = statesTmp.value;
+    this.data.value = statesTmp.value;
   }
 
   private afterSwipeLeft(): void {
-    if ((this.activeState.index - 1) >= 0) {
+    if (this.activeState.index - 1 >= 0) {
       this.activeState.index--;
       this.updateLabelOnSwipe();
     }
@@ -186,8 +190,7 @@ export class SwipeCellComponent implements OnInit {
   }
 
   private afterSwipeRight(): void {
-    if ((this.activeState.index + 1)
-      < this.options.states.length) {
+    if (this.activeState.index + 1 < this.options.states.length) {
       this.activeState.index++;
       this.updateLabelOnSwipe();
     }
@@ -197,15 +200,51 @@ export class SwipeCellComponent implements OnInit {
 
   private afterSwiped(): void {
     const rightswipeDetectvalue = this.actualScreenWidth / 100 * this.options.minSwipePercent;
-    const leftswipeDetectvalue = rightswipeDetectvalue * -1;
+    const leftswipeDetectvalue = -rightswipeDetectvalue;
 
-    if (this.relativeX <= leftswipeDetectvalue || this.relativeX <= (this.options.maxSwipePx * -1)) {
+    if (this.relativeX <= leftswipeDetectvalue || this.relativeX <= -this.options.maxSwipePx) {
       this.afterSwipeLeft();
     } else if (this.relativeX >= rightswipeDetectvalue || this.relativeX >= this.options.maxSwipePx) {
       this.afterSwipeRight();
-    } else {
-      this.touch.emit(this.data);
+    } else if (this.options.useSwipeTouch) {
+        this.touch.emit(this.data);
     }
+  }
+
+  swipe(x: number, y: number) {
+    if (!this.canSwipe) { return; }
+
+    if (this.firstX === undefined) {
+      this.firstX = x;
+      this.onSwipeStart();
+    }
+
+    if (this.firstY === undefined) {
+      this.firstY = y;
+    }
+
+    this.relativeX = x - this.firstX;
+    this.relativeY = y - this.firstY;
+    if (Math.abs(this.relativeX) > this.deadSpace) {
+      this.swiping = true;
+    }
+
+    if (this.swiping && -this.localSavedInnerWidth < this.relativeX && this.relativeX < this.localSavedInnerWidth) {
+      this.positionElement();
+    }
+  }
+
+  down() {
+    this.canSwipe = true;
+  }
+
+  up() {
+    if (!this.swiping) {
+      if (Math.abs(this.relativeX) < this.deadSpace && Math.abs(this.relativeY) < this.deadSpace) {
+        this.touch.emit(this.data);
+      }
+    }
+    this.onSwipeEnd();
   }
 
   @HostListener('window:resize')
@@ -214,60 +253,27 @@ export class SwipeCellComponent implements OnInit {
   }
 
   @HostListener('touchstart') onTouchStart() {
-    this.onSwipeStart();
+    this.down();
   }
 
   @HostListener('mousedown') onMouseDown() {
-    this.onSwipeStart();
+    this.down();
   }
 
   @HostListener('touchmove', ['$event']) onTouchMove(event: TouchEvent) {
-
-    if (this.firstX === undefined) {
-      this.firstX = event.touches[0].screenX;
-    }
-
-    const actualX = event.touches[0].screenX;
-    this.relativeX = (this.firstX - actualX) * -1;
-
-    if (this.relativeX > 0) {
-      if (this.relativeX < this.localSavedInnerWidth) {
-        this.positionElement();
-      }
-    } else {
-      if (this.relativeX > (this.localSavedInnerWidth * -1)) {
-        this.positionElement();
-      }
-    }
+    this.swipe(event.touches[0].screenX, event.touches[0].screenY);
   }
 
   @HostListener('mousemove', ['$event']) onMouseMove(event: MouseEvent) {
-    if (this.swiped === true) {
-      if (this.firstX === undefined) {
-        this.firstX = event.screenX;
-      }
-
-      const actualX = event.screenX;
-      this.relativeX = (this.firstX - actualX) * -1;
-
-      if (this.relativeX > 0) {
-        if (this.relativeX < this.localSavedInnerWidth) {
-          this.positionElement();
-        }
-      } else {
-        if (this.relativeX > (this.localSavedInnerWidth * -1)) {
-          this.positionElement();
-        }
-      }
-    }
+    this.swipe(event.screenX, event.screenY);
   }
 
   @HostListener('touchend') onTouchEnd() {
-    this.onSwipeEnd();
+    this.up();
   }
 
   @HostListener('mouseup') onMouseUp() {
-    this.onSwipeEnd();
+    this.up();
   }
 
   @HostListener('mouseleave') onMouseLeave() {
@@ -276,23 +282,26 @@ export class SwipeCellComponent implements OnInit {
 
   private onSwipeStart(): void {
     this.localSavedInnerWidth = window.innerWidth;
-    this.swiped = true;
+    this.swiping = true;
 
     this.onSwipe();
   }
 
   private onSwipeEnd(): void {
     this.firstX = undefined;
-    this.swiped = false;
+    this.firstY = undefined;
+    this.swiping = false;
     this.afterSwiped();
     this.relativeX = 0;
+    this.relativeY = 0;
+    this.canSwipe = false;
   }
 
   private positionElement(): void {
     const relativeXpx = this.relativeX.toString() + 'px';
     const width = this.elementToMove.nativeElement.offsetWidth;
 
-    if (this.relativeX <= width && this.relativeX >= (width * -1)) {
+    if (-width <= this.relativeX && this.relativeX <= width) {
       this.renderer.setStyle(this.elementToMove.nativeElement, 'position', 'relative');
       this.renderer.setStyle(this.elementToMove.nativeElement, 'left', relativeXpx);
     }

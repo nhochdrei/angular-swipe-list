@@ -30,4 +30,5 @@ export interface SwipelistOptions {
     listFontsize?: string;
     minSwipePercent?: number;
     maxSwipePx?: number;
+    useSwipeTouch?: boolean;
 }

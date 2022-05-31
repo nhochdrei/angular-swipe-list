@@ -1,6 +1,6 @@
 {
   "name": "@nhochdrei/angular-swipe-list",
-  "version": "1.3.7",
+  "version": "1.3.11",
   "description": "A list view with rows you can swipe to change the state of the given data.",
   "repository": {
     "type": "git",
@@ -14,6 +14,9 @@
     "android",
     "ios"
   ],
+  "scripts": {
+    "watch": "ng build angular-swipe-list --watch"
+  },
   "peerDependencies": {
     "@angular/common": "^9.0.7",
     "@angular/core": "^9.0.7",

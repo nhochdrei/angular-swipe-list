@@ -22,6 +22,14 @@
     align-items: center;
 }
 
+.swipe-cell-label-inner {
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+    padding: 3%; 
+    padding-left: 5%;
+}
+
 .swipe-cell-background {
     width: 100%;
     position: absolute;
