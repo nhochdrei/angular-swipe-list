@@ -64,38 +64,6 @@ export class AppComponent {
       defaultStartIndex: 2
     },
     {
-      label: 'Test2',
-      defaultStartIndex: 2
-    },
-    {
-      label: 'Test2',
-      defaultStartIndex: 2
-    },
-    {
-      label: 'Test2',
-      defaultStartIndex: 2
-    },
-    {
-      label: 'Test2',
-      defaultStartIndex: 2
-    },
-    {
-      label: 'Test2',
-      defaultStartIndex: 2
-    },
-    {
-      label: 'Test2',
-      defaultStartIndex: 2
-    },
-    {
-      label: 'Test2',
-      defaultStartIndex: 2
-    },
-    {
-      label: 'Test2',
-      defaultStartIndex: 2
-    },
-    {
       label: 'Test3',
       defaultStartIndex: 0
     }
@@ -115,5 +83,6 @@ export class AppComponent {
   }
 
   onTouch(event) {
+    console.log(event);
   }
 }

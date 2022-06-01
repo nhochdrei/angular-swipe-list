@@ -148,11 +148,6 @@ export class SwipeCellComponent implements OnInit {
     this.actualScreenWidth = window.innerWidth;
   }
 
-  private onSwipe(): void {
-    this.setLeftAndRightStates();
-    this.setGradient();
-  }
-
   private updateLabelOnSwipe(): void {
     const statesTmp = this.options.states[this.activeState.index];
 
@@ -284,7 +279,8 @@ export class SwipeCellComponent implements OnInit {
     this.localSavedInnerWidth = window.innerWidth;
     this.swiping = true;
 
-    this.onSwipe();
+    this.setLeftAndRightStates();
+    this.setGradient();
   }
 
   private onSwipeEnd(): void {
